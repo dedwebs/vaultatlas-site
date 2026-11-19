@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dedwebs.github.io/vaultatlas-site/feed/now-live.schema.json",
+  "title": "Vault Atlas NOW LIVE feed",
+  "description": "Mirrors LiveCommunityFeed.swift in dedwebs/VaultAtlas. Event end, season endEstimate and nukeCodes.validTo are exclusive.",
+  "type": "object",
+  "required": ["schemaVersion", "updatedAt", "events", "season", "nukeCodes"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "$ref": "#/$defs/date" },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/event" } },
+    "season": { "$ref": "#/$defs/season" },
+    "nukeCodes": { "$ref": "#/$defs/nukeCodes" }
+  },
+  "$defs": {
+    "date": {
+      "description": "ISO8601 instant with offset (optional fractional seconds), or YYYY-MM-DD read as America/New_York midnight.",
+      "type": "string",
+      "pattern": "^(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})|\\d{4}-\\d{2}-\\d{2})$"
+    },
+    "nullableDate": { "oneOf": [{ "$ref": "#/$defs/date" }, { "type": "null" }] },
+    "event": {
+      "type": "object",
+      "required": ["id", "title", "blurb", "start", "end"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "blurb": { "type": "string" },
+        "questId": { "type": ["string", "null"] },
+        "start": { "$ref": "#/$defs/date" },
+        "end": { "$ref": "#/$defs/date" }
+      }
+    },
+    "season": {
+      "type": "object",
+      "required": ["id", "number", "title", "subtitle"],
+      "properties": {
+        "id": { "type": "string" },
+        "number": { "type": "integer" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "start": { "$ref": "#/$defs/nullableDate" },
+        "endEstimate": { "$ref": "#/$defs/nullableDate" }
+      }
+    },
+    "nukeCodes": {
+      "type": "object",
+      "required": ["label", "alpha", "bravo", "charlie"],
+      "properties": {
+        "label": { "type": "string" },
+        "alpha": { "type": "string", "pattern": "^(\\d{8})?$" },
+        "bravo": { "type": "string", "pattern": "^(\\d{8})?$" },
+        "charlie": { "type": "string", "pattern": "^(\\d{8})?$" },
+        "validFrom": { "$ref": "#/$defs/nullableDate" },
+        "validTo": { "$ref": "#/$defs/nullableDate" },
+        "sources": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
