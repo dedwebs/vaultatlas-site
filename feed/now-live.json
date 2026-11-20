@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-19T17:00:00Z",
+  "updatedAt": "2026-11-20T17:30:00Z",
   "events": [
     {
       "id": "gold-rush-2026-nov",
       "title": "Gold Rush",
       "start": "2026-11-19T12:00:00-05:00",
-      "end": "2026-11-24T12:00:00-05:00",
+      "end": "2026-11-23T12:00:00-05:00",
       "blurb": "Bonus Gold Bullion window. Run your usual events and loot."
     },
     {
       "id": "double-mutations-2026-nov",
       "title": "Double Mutations",
       "start": "2026-11-19T12:00:00-05:00",
-      "end": "2026-11-24T12:00:00-05:00",
+      "end": "2026-11-23T12:00:00-05:00",
       "blurb": "Mutation effects are boosted while the window is open."
     },
     {
@@ -29,54 +29,6 @@
       "start": "2026-11-26T12:00:00-05:00",
       "end": "2026-12-01T12:00:00-05:00",
       "blurb": "Experience gains are doubled for the weekend."
-    },
-    {
-      "id": "fasnacht-2026",
-      "title": "Fasnacht Day",
-      "questId": "q-event-fasnacht-day",
-      "start": "2026-07-28T00:00:00-04:00",
-      "end": "2026-08-11T00:00:00-04:00",
-      "blurb": "Hourly parade in Helvetia. Masks drop from the final boss loot."
-    },
-    {
-      "id": "bratsnacht-2026",
-      "title": "Bratsnacht Weekend",
-      "questId": "q-event-fasnacht-day",
-      "start": "2026-08-07T00:00:00-04:00",
-      "end": "2026-08-11T00:00:00-04:00",
-      "blurb": "Fasnacht variant — Brat Boy / Glowing Red Hot masks only during this window."
-    },
-    {
-      "id": "invaders-2026-aug",
-      "title": "Invaders from Beyond",
-      "questId": "q-event-invaders-from-beyond",
-      "start": "2026-08-18T00:00:00-04:00",
-      "end": "2026-09-01T00:00:00-04:00",
-      "blurb": "Seasonal alien invasion public event."
-    },
-    {
-      "id": "meat-week-placeholder",
-      "title": "Grahm's Meat-Cook / Primal Cuts",
-      "questId": "q-event-grahm-s-meat-cook",
-      "start": "2026-06-03T00:00:00-04:00",
-      "end": "2026-06-17T00:00:00-04:00",
-      "blurb": "Meat Week seasonal — cook + Primal Cuts."
-    },
-    {
-      "id": "big-bloom-placeholder",
-      "title": "The Big Bloom",
-      "questId": "q-event-the-big-bloom",
-      "start": "2026-04-22T00:00:00-04:00",
-      "end": "2026-05-06T00:00:00-04:00",
-      "blurb": "Seasonal flower / flora public event."
-    },
-    {
-      "id": "mothman-equinox-placeholder",
-      "title": "The Mothman Equinox",
-      "questId": "q-event-the-mothman-equinox",
-      "start": "2025-12-09T00:00:00-05:00",
-      "end": "2025-12-23T00:00:00-05:00",
-      "blurb": "Seasonal Point Pleasant mothman event."
     }
   ],
   "season": {
