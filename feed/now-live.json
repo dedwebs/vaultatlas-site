@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T17:30:00Z",
+  "updatedAt": "2026-11-20T18:00:00Z",
   "events": [
     {
       "id": "gold-rush-2026-nov",
@@ -40,15 +40,15 @@
     "endEstimate": "2026-12-01T00:00:00-05:00"
   },
   "nukeCodes": {
-    "label": "Aug 27 – Sep 2, 2026",
-    "validFrom": "2026-08-27T00:00:00-04:00",
-    "validTo": "2026-09-03T00:00:00-04:00",
-    "alpha": "92387092",
-    "bravo": "95631813",
-    "charlie": "73412010",
+    "label": "Nov 20 – Nov 26, 2026",
+    "validFrom": "2026-11-20T00:00:00Z",
+    "validTo": "2026-11-27T00:00:00Z",
+    "alpha": "45721821",
+    "bravo": "51798126",
+    "charlie": "05491289",
     "sources": [
-      "https://www.falloutbuilds.com/fo76/",
-      "https://nukaknights.com/"
+      "https://nukaknights.com/",
+      "https://fo76challenges.com/nuke-codes"
     ],
     "notes": "Unofficial fan-decoded silo launch codes. Rotate weekly — verify against community sources before a launch. Not affiliated with Bethesda."
   }
