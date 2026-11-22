@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Shared build · Vault Atlas</title>
+  <style>
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: #0b140c; color: #b8e08a; margin: 0; padding: 1.25rem; line-height: 1.5; }
+    a { color: #7dff7a; }
+    h1 { color: #d6f5a3; font-size: 1.5rem; margin: 0 0 .25rem; text-transform: uppercase; overflow-wrap: anywhere; }
+    h2 { color: #8fbf6a; font-size: .8rem; letter-spacing: .2em; font-weight: normal; margin: 1.25rem 0 .5rem; }
+    .card { max-width: 32rem; margin: 0 auto; border: 1px solid #3d6b3a; padding: 1.25rem; background: #101a11; }
+    .meta { color: #8fbf6a; margin: 0; }
+    .special { display: grid; grid-template-columns: repeat(7, 1fr); gap: .35rem; text-align: center; }
+    .special div { border: 1px solid #2c4a2a; padding: .35rem 0; }
+    .special b { display: block; color: #d6f5a3; font-size: 1.15rem; }
+    .special span { font-size: .7rem; color: #8fbf6a; }
+    ul { padding-left: 1.1rem; margin: 0; }
+    .btn { display: block; width: 100%; box-sizing: border-box; text-align: center; padding: .85rem; margin-top: .75rem; font: inherit; font-weight: bold; letter-spacing: .08em; text-decoration: none; cursor: pointer; border: 1px solid #7dff7a; }
+    .primary { background: #7dff7a; color: #0b140c; }
+    .quiet { background: transparent; color: #7dff7a; }
+    .note { font-size: .8rem; color: #8fbf6a; }
+    .error { color: #ffb38a; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section id="build" hidden>
+      <p class="meta">VAULT ATLAS · SHARED BUILD</p>
+      <h1 id="name"></h1>
+      <p class="meta" id="level"></p>
+
+      <h2>// SPECIAL</h2>
+      <div class="special" id="special"></div>
+
+      <h2>// PERK CARDS</h2>
+      <ul id="perks"></ul>
+
+      <a class="btn primary" id="open" href="#">OPEN IN VAULT ATLAS</a>
+      <button class="btn quiet" id="copy" type="button">COPY BUILD CODE</button>
+      <p class="note" id="copied" hidden>Copied. In Vault Atlas, go to Builds → RECEIVE A BUILD CODE and paste it.</p>
+      <p class="note">Don't have the app? Vault Atlas is a free, unofficial Fallout 76 companion for iPhone.</p>
+    </section>
+
+    <section id="invalid" hidden>
+      <h1>Build not found</h1>
+      <p class="error">This link is missing part of the build. Ask your friend to send it again from Vault Atlas.</p>
+    </section>
+
+    <p class="note">Fan-made and unofficial. Not affiliated with Bethesda Softworks, ZeniMax Media, or Microsoft. <a href="../">Vault Atlas</a></p>
+  </main>
+
+  <script>
+    // Same rules as BuildCalculator.parseCode in the app: clamp level and SPECIAL, keep only safe perk ids.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var name = (q.get("n") || "").trim().slice(0, 80) || "Shared Build";
+      var level = parseInt(q.get("lvl"), 10);
+      var special = (q.get("s") || "").split(".").map(function (v) { return parseInt(v, 10); });
+      var perkRaw = (q.get("p") || "").split(",");
+
+      if (isNaN(level) || special.length !== 7 || special.some(isNaN)) {
+        document.getElementById("invalid").hidden = false;
+        return;
+      }
+      level = Math.min(1000, Math.max(1, level));
+      special = special.map(function (v) { return Math.min(15, Math.max(1, v)); });
+      var seen = {};
+      var perks = perkRaw.map(function (p) { return p.trim(); }).filter(function (p) {
+        if (!/^[A-Za-z0-9_-]{1,64}$/.test(p) || seen[p]) return false;
+        seen[p] = true;
+        return true;
+      }).slice(0, 24);
+
+      document.getElementById("name").textContent = name;
+      document.getElementById("level").textContent = "Level " + level;
+      document.title = name + " · Vault Atlas";
+
+      var letters = ["S", "P", "E", "C", "I", "A", "L"];
+      var grid = document.getElementById("special");
+      special.forEach(function (v, i) {
+        var cell = document.createElement("div");
+        var b = document.createElement("b");
+        b.textContent = String(v);
+        var s = document.createElement("span");
+        s.textContent = letters[i];
+        cell.appendChild(b);
+        cell.appendChild(s);
+        grid.appendChild(cell);
+      });
+
+      var list = document.getElementById("perks");
+      if (perks.length === 0) {
+        var none = document.createElement("li");
+        none.textContent = "None picked yet";
+        list.appendChild(none);
+      }
+      perks.forEach(function (id) {
+        var li = document.createElement("li");
+        li.textContent = id.replace(/^perk-/, "").split(/[-_]/).map(function (w) {
+          return w.charAt(0).toUpperCase() + w.slice(1);
+        }).join(" ");
+        list.appendChild(li);
+      });
+
+      var code = "vaultatlas://build/" + encodeURIComponent(name) +
+        "?lvl=" + level + "&s=" + special.join(".") + "&p=" + perks.join(",");
+      document.getElementById("open").href = code;
+
+      document.getElementById("copy").addEventListener("click", function () {
+        var done = function () { document.getElementById("copied").hidden = false; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () { prompt("Copy this code:", code); });
+        } else {
+          prompt("Copy this code:", code);
+        }
+      });
+
+      document.getElementById("build").hidden = false;
+    })();
+  </script>
+</body>
+</html>
