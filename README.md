@@ -6,7 +6,8 @@ GitHub Pages publishes it at https://dedwebs.github.io/vaultatlas-site/.
 
 ## Pages
 
-- `index.html` — short landing page. States that Vault Atlas is an unofficial Fallout 76 companion for iOS, and links to support and privacy.
+- `index.html` — forwards to the Vault Atlas page on NixonMade, https://nixonmade.com/vault-atlas/. That is the main product page now.
+- `b/index.html` — shared-build page that the app's build links open.
 - `support.html` — support page. Contact is `info@nixonmade.com`, plus App Store Connect / TestFlight feedback. It also has short notes on the Theorycraft Pack (one-time unlock for Weapons Caps-Check and Perk Loadout; Restore Purchases from Builds or More), data accuracy (offline packs and estimates can lag live patches), a link to the privacy policy, and a disclaimer that the app is fan-made and not affiliated with Bethesda Softworks, ZeniMax Media, or Microsoft.
 - `privacy.html` — privacy policy, last updated July 30, 2026. It says the app is offline-first and does not require an account for core features; that saved builds, favorites, recent searches, fishing progress markers, and cached wiki lookups are stored on the device; that online lookup requests publicly available wiki or community pages and may cache the result; that Theorycraft Pack purchases are handled by Apple In-App Purchase; and that the current build does not include third-party advertising SDKs or analytics trackers.
 
@@ -14,7 +15,7 @@ Those privacy and support statements describe the app. This repository only host
 
 ## Structure
 
-Each page is a single HTML file with inline CSS. There is no JavaScript, shared stylesheet, package manifest, bundler, or build script. The only other content is the live feed in `feed/` and its validator in `scripts/`.
+Pages share `assets/site.css`, which uses the same Pip-Boy colors as nixonmade.com/vault-atlas/. `b/index.html` has a small script that reads the build from the link. There is no package manifest, bundler, or build script. The only other content is the live feed in `feed/` and its validator in `scripts/`.
 
 `.nojekyll` is an empty file so GitHub Pages serves the files as-is and does not run Jekyll.
 
