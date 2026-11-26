@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Shared build · Vault Atlas</title>
+  <meta name="color-scheme" content="dark" />
+  <link rel="stylesheet" href="../assets/site.css" />
+  <style>
+    .special { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .3rem; text-align: center; }
+    .special div { background: var(--raised); border: 1px solid var(--border); border-radius: 4px; padding: .45rem 0; }
+    .special b { display: block; font-size: 1.25rem; color: var(--text); text-shadow: 0 0 8px var(--glow-25); }
+    .special span { font-size: .7rem; color: var(--label); letter-spacing: .1em; }
+    ul.perks { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
+    ul.perks li { background: var(--raised); border-left: 3px solid var(--glow); padding: .4rem .7rem; }
+    .error { color: var(--danger); }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="https://nixonmade.com/vault-atlas/">Vault Atlas</a>
+    <nav><a href="../support.html">Support</a> <a href="../privacy.html">Privacy</a></nav>
+  </header>
+  <main>
+    <section class="panel" id="build" hidden>
+      <p class="kicker">Shared build</p>
+      <h1 id="name"></h1>
+      <p class="muted" id="level"></p>
+
+      <h2>SPECIAL</h2>
+      <div class="special" id="special"></div>
+
+      <h2>Perk cards</h2>
+      <ul class="perks" id="perks"></ul>
+
+      <a class="btn" id="open" href="#">OPEN IN VAULT ATLAS</a>
+      <button class="btn quiet" id="copy" type="button">COPY BUILD CODE</button>
+      <p class="muted" id="copied" hidden>Copied. In Vault Atlas, go to Builds → RECEIVE A BUILD CODE and paste it.</p>
+      <p class="muted">Don't have the app? Vault Atlas is a free, unofficial Fallout 76 companion for iPhone. <a href="https://testflight.apple.com/join/azT8erWH">Join the beta</a>.</p>
+    </section>
+
+    <section class="panel" id="invalid" hidden>
+      <p class="kicker">Shared build</p>
+      <h1>Build not found</h1>
+      <p class="error">This link is missing part of the build. Ask your friend to send it again from Vault Atlas.</p>
+    </section>
+
+  </main>
+  <footer class="foot">
+    <p>Fan-made and unofficial. Not affiliated with Bethesda Softworks, ZeniMax Media, or Microsoft. &copy; 2026 <a href="https://nixonmade.com/">NixonMade</a>.</p>
+  </footer>
+
+  <script>
+    // Same rules as BuildCalculator.parseCode in the app: clamp level and SPECIAL, keep only safe perk ids.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var name = (q.get("n") || "").trim().slice(0, 80) || "Shared Build";
+      var level = parseInt(q.get("lvl"), 10);
+      var special = (q.get("s") || "").split(".").map(function (v) { return parseInt(v, 10); });
+      var perkRaw = (q.get("p") || "").split(",");
+
+      if (isNaN(level) || special.length !== 7 || special.some(isNaN)) {
+        document.getElementById("invalid").hidden = false;
+        return;
+      }
+      level = Math.min(1000, Math.max(1, level));
+      special = special.map(function (v) { return Math.min(15, Math.max(1, v)); });
+      var seen = {};
+      var perks = perkRaw.map(function (p) { return p.trim(); }).filter(function (p) {
+        if (!/^[A-Za-z0-9_-]{1,64}$/.test(p) || seen[p]) return false;
+        seen[p] = true;
+        return true;
+      }).slice(0, 24);
+
+      document.getElementById("name").textContent = name;
+      document.getElementById("level").textContent = "Level " + level;
+      document.title = name + " · Vault Atlas";
+
+      var letters = ["S", "P", "E", "C", "I", "A", "L"];
+      var grid = document.getElementById("special");
+      special.forEach(function (v, i) {
+        var cell = document.createElement("div");
+        var b = document.createElement("b");
+        b.textContent = String(v);
+        var s = document.createElement("span");
+        s.textContent = letters[i];
+        cell.appendChild(b);
+        cell.appendChild(s);
+        grid.appendChild(cell);
+      });
+
+      var list = document.getElementById("perks");
+      if (perks.length === 0) {
+        var none = document.createElement("li");
+        none.textContent = "None picked yet";
+        list.appendChild(none);
+      }
+      perks.forEach(function (id) {
+        var li = document.createElement("li");
+        li.textContent = id.replace(/^perk-/, "").split(/[-_]/).map(function (w) {
+          return w.charAt(0).toUpperCase() + w.slice(1);
+        }).join(" ");
+        list.appendChild(li);
+      });
+
+      var code = "vaultatlas://build/" + encodeURIComponent(name) +
+        "?lvl=" + level + "&s=" + special.join(".") + "&p=" + perks.join(",");
+      document.getElementById("open").href = code;
+
+      document.getElementById("copy").addEventListener("click", function () {
+        var done = function () { document.getElementById("copied").hidden = false; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () { prompt("Copy this code:", code); });
+        } else {
+          prompt("Copy this code:", code);
+        }
+      });
+
+      document.getElementById("build").hidden = false;
+    })();
+  </script>
+</body>
+</html>
