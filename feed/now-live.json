@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-26T00:30:00Z",
+  "updatedAt": "2026-11-27T06:30:00Z",
   "events": [
     {
       "id": "mutated-public-events-2026-nov",
@@ -26,12 +26,12 @@
     "endEstimate": "2026-12-01T00:00:00-05:00"
   },
   "nukeCodes": {
-    "label": "Nov 20 – Nov 26, 2026",
-    "validFrom": "2026-11-20T00:00:00Z",
-    "validTo": "2026-11-27T00:00:00Z",
-    "alpha": "45721821",
-    "bravo": "51798126",
-    "charlie": "05491289",
+    "label": "Nov 27 – Dec 3, 2026",
+    "validFrom": "2026-11-27T00:00:00Z",
+    "validTo": "2026-12-04T00:00:00Z",
+    "alpha": "37148779",
+    "bravo": "60715190",
+    "charlie": "46479683",
     "sources": [
       "https://nukaknights.com/",
       "https://fo76challenges.com/nuke-codes"
