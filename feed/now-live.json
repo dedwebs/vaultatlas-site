@@ -1,21 +1,7 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T18:00:00Z",
+  "updatedAt": "2026-11-27T06:30:00Z",
   "events": [
-    {
-      "id": "gold-rush-2026-nov",
-      "title": "Gold Rush",
-      "start": "2026-11-19T12:00:00-05:00",
-      "end": "2026-11-23T12:00:00-05:00",
-      "blurb": "Bonus Gold Bullion window. Run your usual events and loot."
-    },
-    {
-      "id": "double-mutations-2026-nov",
-      "title": "Double Mutations",
-      "start": "2026-11-19T12:00:00-05:00",
-      "end": "2026-11-23T12:00:00-05:00",
-      "blurb": "Mutation effects are boosted while the window is open."
-    },
     {
       "id": "mutated-public-events-2026-nov",
       "title": "Mutated Public Events",
@@ -40,12 +26,12 @@
     "endEstimate": "2026-12-01T00:00:00-05:00"
   },
   "nukeCodes": {
-    "label": "Nov 20 – Nov 26, 2026",
-    "validFrom": "2026-11-20T00:00:00Z",
-    "validTo": "2026-11-27T00:00:00Z",
-    "alpha": "45721821",
-    "bravo": "51798126",
-    "charlie": "05491289",
+    "label": "Nov 27 – Dec 3, 2026",
+    "validFrom": "2026-11-27T00:00:00Z",
+    "validTo": "2026-12-04T00:00:00Z",
+    "alpha": "37148779",
+    "bravo": "60715190",
+    "charlie": "46479683",
     "sources": [
       "https://nukaknights.com/",
       "https://fo76challenges.com/nuke-codes"
